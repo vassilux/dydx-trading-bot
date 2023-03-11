@@ -39,11 +39,11 @@ def place_market_order(client, market, side, size, price, reduce_only):
   # Get Position Id
   account_response = client.private.get_account()
   position_id = account_response.data["account"]["positionId"]
-
+  
   # Get expiration time
   server_time = client.public.get_time()
-  expiration = datetime.fromisoformat(server_time.data["iso"].replace("Z", "")) + timedelta(seconds=70)
-
+  #expiration = datetime.fromisoformat(server_time.data["iso"].replace("Z", "")) + timedelta(seconds=70)
+  my_expiration = time.time() + 100
   # Place an order
   placed_order = client.private.create_order(
     position_id=position_id, # required for creating the order signature
@@ -54,7 +54,8 @@ def place_market_order(client, market, side, size, price, reduce_only):
     size=size,
     price=price,
     limit_fee='0.015',
-    expiration_epoch_seconds=expiration.timestamp(),
+    #expiration_epoch_seconds=expiration.timestamp(),
+    expiration_epoch_seconds=my_expiration,
     time_in_force="FOK", 
     reduce_only=reduce_only
   )
@@ -70,7 +71,7 @@ def abort_all_positions(client):
   
   # Cancel all orders
   client.private.cancel_all_orders()
-
+  
   # Protect API
   time.sleep(0.5)
 
@@ -83,7 +84,7 @@ def abort_all_positions(client):
   # Get all open positions
   positions = client.private.get_positions(status="OPEN")
   all_positions = positions.data["positions"]
-
+  
   # Handle open positions
   close_orders = []
   if len(all_positions) > 0:
@@ -101,10 +102,11 @@ def abort_all_positions(client):
 
       # Get Price
       price = float(position["entryPrice"])
+      
       accept_price = price * 1.7 if side == "BUY" else price * 0.3
       tick_size = markets["markets"][market]["tickSize"]
       accept_price = format_number(accept_price, tick_size)
-
+      
       # Place order to close
       order = place_market_order(
         client,
@@ -114,7 +116,7 @@ def abort_all_positions(client):
         accept_price,
         True
       )
-
+      
       # Append the result
       close_orders.append(order)
 

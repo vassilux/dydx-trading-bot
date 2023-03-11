@@ -128,6 +128,7 @@ class BotAgent:
     except Exception as e:
       self.order_dict["pair_status"] = "ERROR"
       self.order_dict["comments"] = f"Market 1 {self.market_1}: , {e}"
+      print(e)
       return self.order_dict
 
     # Ensure order is live before processing
