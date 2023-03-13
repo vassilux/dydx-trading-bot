@@ -8,7 +8,7 @@ MODE = "DEVELOPMENT" #PRODUCTION #DEVELOPMENT
 ABORT_ALL_POSITIONS = False #just for testnet 
 
 # Find Cointegrated Pairs
-FIND_COINTEGRATED = True
+FIND_COINTEGRATED = False
 
 # Manage Exits
 MANAGE_EXITS = True
