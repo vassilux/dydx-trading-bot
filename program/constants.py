@@ -2,10 +2,10 @@ from dydx3.constants import API_HOST_GOERLI, API_HOST_MAINNET
 from decouple import config
 
 # !!!! SELECT MODE !!!!
-MODE = "DEVELOPMENT" #PRODUCTION #DEVELOPMENT
+MODE = "PRODUCTION" #PRODUCTION #DEVELOPMENT
 
 # Close all open positions and orders
-ABORT_ALL_POSITIONS = False #just for testnet 
+ABORT_ALL_POSITIONS = False
 
 # Find Cointegrated Pairs
 FIND_COINTEGRATED = True
