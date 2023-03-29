@@ -6,6 +6,6 @@ CRON item - Daily
 
 CRON item - 5 Mins
 
-*/5 * * * * /bin/timeout -s 2 290 python3 dydx_bot/program/main.py > output_dydx_bot  2>&1
+*/5 * * * * /bin/timeout -s 2 290 python3 dydx_bot/program/main.py > output_dydx_bot.txt  2>&1
 
 crontab -l
